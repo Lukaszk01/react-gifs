@@ -10,7 +10,9 @@ export default class GifList extends Component {
     const { gifIds, changeSelectedGif } = this.props;
     return (
       <div className="gif-list">
-        { gifIds.map(gifId => <Gif gifId={gifId} key={gifIds} changeSelectedGif={changeSelectedGif} />) }
+        {gifIds.map(
+          gifId => <Gif gifId={gifId} key={gifIds}
+            changeSelectedGif={changeSelectedGif} />)}
       </div>
     );
   }

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import SearchBar from './searchBar';
-import Gif from  './gif';
+import Gif from './gif';
 import GifList from './gifList';
 
 
@@ -10,7 +10,6 @@ const giphy = require('giphy-api')('KsltJNEs1v3QDDVlinP6EFo2GqjFxgRR');
 
 
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +40,7 @@ export default class App extends Component {
         <div className="left-scene">
           <SearchBar changeGifIds={this.changeGifIds}/>
           <div className="selected-gif">
-           <Gif gifId={selectedGif} />
+            <Gif gifId={selectedGif} />
           </div>
         </div>
         <div className="right-scene">

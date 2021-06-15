@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-
 export default class Gif extends Component {
 
   handleClick = (event) => {
@@ -12,7 +11,7 @@ export default class Gif extends Component {
     const { gifId } = this.props;
     const url = `https://media.giphy.com/media/${gifId}/giphy.gif`;
     return (
-      <img className="gif" src={url} alt="gif" onClick={ this.handleClick } />
+      <img className="gif" src={url} alt="gif" onClick={this.handleClick} />
     );
   }
 }

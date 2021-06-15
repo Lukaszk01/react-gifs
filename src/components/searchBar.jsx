@@ -8,7 +8,7 @@ export default class SearchBar extends Component {
 
   render() {
     return (
-      <input className="form-search form-control" type="text" placeholder="Write your meme" onChange={ this.handleChange} />
+      <input className="form-search form-control" type="text" placeholder="Write your meme" onChange={this.handleChange} />
     );
   }
 }
