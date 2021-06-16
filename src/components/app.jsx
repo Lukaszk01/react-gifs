@@ -16,7 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       giIdList: ["WuGSL4LFUMQU", "HuVCpmfKheI2Q", "u6uAu3yyDNqRq"],
-      gifIdSelected: "WuGSL4LFUMQU"
+      gifIdSelected: "wuk4K58OTyYec"
     };
     this.fetchGiphy("doge");
   }
@@ -25,7 +25,7 @@ class App extends Component {
     giphy.search({
       q: keyword,
       rating: 'g',
-      limit: 10
+      limit: 100
     }, (err, res) => {
       this.setState({ giIdList: res.data.map(gif => gif.id) });
     });
