@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 
-export default class SearchBar extends Component {
+class SearchBar extends Component {
   handleChange = (event) => {
-    const { changeGifIds } = this.props;
-    changeGifIds(event.currentTarget.value);
+    const { fetchGiphy } = this.props;
+    fetchGiphy(event.currentTarget.value);
   }
 
   render() {
     return (
-      <input className="form-search form-control" type="text" placeholder="Write your meme" onChange={this.handleChange} />
+      <input className="form-search form-control" type="text" placeholder="Search for a gif" onChange={this.handleChange} />
     );
   }
 }
+
+export default SearchBar;

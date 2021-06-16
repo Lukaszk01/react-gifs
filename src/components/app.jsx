@@ -1,52 +1,55 @@
-
 import React, { Component } from 'react';
 
 import SearchBar from './searchBar';
-import Gif from './gif';
 import GifList from './gifList';
+import Gif from './gif';
 
+const giphy = require('giphy-api')({
+  apiKey: 'rg67YyQeqm7129NNZe2ZYSNyMh4rUumz',
+  https: true
+});
 
-const giphy = require('giphy-api')('KsltJNEs1v3QDDVlinP6EFo2GqjFxgRR');
-
-
-export default class App extends Component {
+// eslint-disable-next-line react/prefer-stateless-function
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedGif: "6fScAIQR0P0xW",
-      gifIds: ["WuGSL4LFUMQU", "HuVCpmfKheI2Q", "u6uAu3yyDNqRq"]
+      giIdList: ["WuGSL4LFUMQU", "HuVCpmfKheI2Q", "u6uAu3yyDNqRq"],
+      gifIdSelected: "WuGSL4LFUMQU"
     };
+    this.fetchGiphy("tokyo");
   }
 
-  changeSelectedGif = (newGifId) => {
-    this.setState({ selectedGif: newGifId });
-  }
-
-  changeGifIds = (keyword) => {
+  fetchGiphy = (keyword) => {
     giphy.search({
       q: keyword,
       rating: 'g',
       limit: 10
     }, (err, res) => {
-      this.setState({ gifIds: res.data.map(gifObj => gifObj.id) });
+      this.setState({ giIdList: res.data.map(gif => gif.id) });
     });
   }
 
+  changeSelectGif = (newSelectedGifId) => {
+    this.setState({ gifIdSelected: newSelectedGifId });
+  }
 
   render() {
-    const { selectedGif, gifIds } = this.state;
+    const { gifIdSelected, giIdList } = this.state;
     return (
       <div>
         <div className="left-scene">
-          <SearchBar changeGifIds={this.changeGifIds}/>
+          <SearchBar fetchGiphy={this.fetchGiphy} />
           <div className="selected-gif">
-            <Gif gifId={selectedGif} />
+            <Gif gifId={gifIdSelected} />
           </div>
         </div>
         <div className="right-scene">
-          <GifList gifIds={gifIds} changeSelectedGif={this.changeSelectedGif} />
+          <GifList gifIdList={giIdList} changeSelectGif={this.changeSelectGif} />
         </div>
       </div>
     );
   }
 }
+
+export default App;
