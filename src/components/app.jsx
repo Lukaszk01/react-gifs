@@ -4,8 +4,9 @@ import SearchBar from './searchBar';
 import GifList from './gifList';
 import Gif from './gif';
 
+const key = process.env.REACT_APP_API_KEY
 const giphy = require('giphy-api')({
-  apiKey: 'rg67YyQeqm7129NNZe2ZYSNyMh4rUumz',
+  apiKey: key,
   https: true
 });
 
@@ -17,7 +18,7 @@ class App extends Component {
       giIdList: ["WuGSL4LFUMQU", "HuVCpmfKheI2Q", "u6uAu3yyDNqRq"],
       gifIdSelected: "WuGSL4LFUMQU"
     };
-    this.fetchGiphy("tokyo");
+    this.fetchGiphy("doge");
   }
 
   fetchGiphy = (keyword) => {
