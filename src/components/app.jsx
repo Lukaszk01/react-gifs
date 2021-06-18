@@ -4,6 +4,7 @@ import SearchBar from './searchBar';
 import GifList from './gifList';
 import Gif from './gif';
 
+
 const key = process.env.REACT_APP_API_KEY
 const giphy = require('giphy-api')({
   apiKey: key,
@@ -34,6 +35,36 @@ class App extends Component {
   changeSelectGif = (newSelectedGifId) => {
     this.setState({ gifIdSelected: newSelectedGifId });
   }
+
+
+const DragAndDrop = props => {
+  const handleDragEnter = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const handleDragLeave = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const handleDragOver = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  const handleDrop = e => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+  return (
+    <div className={'drag-drop-zone'}
+      onDrop={e => handleDrop(e)}
+      onDragOver={e => handleDragOver(e)}
+      onDragEnter={e => handleDragEnter(e)}
+      onDragLeave={e => handleDragLeave(e)}
+    >
+      <p>Drag files here to upload</p>
+    </div>
+  );
+};  
 
   render() {
     const { gifIdSelected, giIdList } = this.state;
