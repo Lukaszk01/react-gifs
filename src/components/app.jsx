@@ -54,6 +54,21 @@ const DragAndDrop = props => {
     e.preventDefault();
     e.stopPropagation();
   };
+  const reducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_DROP_DEPTH':
+      return { ...state, dropDepth: action.dropDepth }
+    case 'SET_IN_DROP_ZONE':
+      return { ...state, inDropZone: action.inDropZone };
+    case 'ADD_FILE_TO_LIST':
+      return { ...state, fileList: state.fileList.concat(action.files) };
+    default:
+      return state;
+  }
+};
+const [data, dispatch] = React.useReducer(
+  reducer, { dropDepth: 0, inDropZone: false, fileList: [] }
+)
   return (
     <div className={'drag-drop-zone'}
       onDrop={e => handleDrop(e)}
@@ -78,6 +93,10 @@ const DragAndDrop = props => {
         </div>
         <div className="right-scene">
           <GifList gifIdList={giIdList} changeSelectGif={this.changeSelectGif} />
+        </div>
+        <div className="App">
+          <h1>Drag-and-drop component</h1>
+          <DragAndDrop />
         </div>
       </div>
     );
