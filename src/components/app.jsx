@@ -68,6 +68,29 @@ const handleDragLeave = e => {
   if (data.dropDepth > 0) return
   dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false })
 };
+
+if (data.dropDepth > 0) return
+  
+const handleDragOver = e => {
+  ...
+  e.dataTransfer.dropEffect = 'copy';
+  dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: true });
+};
+
+const handleDrop = e => {
+  ...
+  let files = [...e.dataTransfer.files];
+  
+  if (files && files.length > 0) {
+    const existingFiles = data.fileList.map(f => f.name)
+    files = files.filter(f => !existingFiles.includes(f.name))
+    
+    dispatch({ type: 'ADD_FILE_TO_LIST', files });
+    e.dataTransfer.clearData();
+    dispatch({ type: 'SET_DROP_DEPTH', dropDepth: 0 });
+    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
+  }
+};
   
   render() {
     const { gifIdSelected, giIdList } = this.state;
