@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import SearchBar from './searchBar';
 import GifList from './gifList';
 import Gif from './gif';
-
+import dragAndDrop from './dragAndDrop';
 
 const key = process.env.REACT_APP_API_KEY
 const giphy = require('giphy-api')({
@@ -37,23 +37,7 @@ class App extends Component {
   }
 
 
-const DragAndDrop = props => {
-  const handleDragEnter = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDragLeave = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDragOver = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDrop = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
+
   const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_DROP_DEPTH':
@@ -69,18 +53,45 @@ const DragAndDrop = props => {
 const [data, dispatch] = React.useReducer(
   reducer, { dropDepth: 0, inDropZone: false, fileList: [] }
 )
-  return (
-    <div className={'drag-drop-zone'}
-      onDrop={e => handleDrop(e)}
-      onDragOver={e => handleDragOver(e)}
-      onDragEnter={e => handleDragEnter(e)}
-      onDragLeave={e => handleDragLeave(e)}
-    >
-      <p>Drag files here to upload</p>
-    </div>
-  );
-};  
+  e.preventDefault()
+e.stopPropagation()
 
+
+const handleDragEnter = e => {
+  ...
+  dispatch({ type: 'SET_DROP_DEPTH', dropDepth: data.dropDepth + 1 });
+};
+
+const handleDragLeave = e => {
+  ...
+  dispatch({ type: 'SET_DROP_DEPTH', dropDepth: data.dropDepth - 1 });
+  if (data.dropDepth > 0) return
+  dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false })
+};
+
+if (data.dropDepth > 0) return
+  
+const handleDragOver = e => {
+  ...
+  e.dataTransfer.dropEffect = 'copy';
+  dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: true });
+};
+
+const handleDrop = e => {
+  ...
+  let files = [...e.dataTransfer.files];
+  
+  if (files && files.length > 0) {
+    const existingFiles = data.fileList.map(f => f.name)
+    files = files.filter(f => !existingFiles.includes(f.name))
+    
+    dispatch({ type: 'ADD_FILE_TO_LIST', files });
+    e.dataTransfer.clearData();
+    dispatch({ type: 'SET_DROP_DEPTH', dropDepth: 0 });
+    dispatch({ type: 'SET_IN_DROP_ZONE', inDropZone: false });
+  }
+};
+  
   render() {
     const { gifIdSelected, giIdList } = this.state;
     return (
@@ -97,6 +108,8 @@ const [data, dispatch] = React.useReducer(
         <div className="App">
           <h1>Drag-and-drop component</h1>
           <DragAndDrop />
+          <DragAndDrop data={data} dispatch={dispatch} />
+
         </div>
       </div>
     );
