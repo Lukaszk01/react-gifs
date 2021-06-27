@@ -78,7 +78,6 @@ const handleDragOver = e => {
 };
 
 const handleDrop = e => {
-  ...
   let files = [...e.dataTransfer.files];
   
   if (files && files.length > 0) {
@@ -105,12 +104,21 @@ const handleDrop = e => {
         <div className="right-scene">
           <GifList gifIdList={giIdList} changeSelectGif={this.changeSelectGif} />
         </div>
-        <div className="App">
-          <h1>Drag-and-drop component</h1>
-          <DragAndDrop />
-          <DragAndDrop data={data} dispatch={dispatch} />
-
-        </div>
+      <div className="App">
+        <h1>React drag-and-drop component</h1>
+        <DragAndDrop data={data} dispatch={dispatch} />
+        <ol className="dropped-files">
+          {data.fileList.map(f => {
+            return (
+              <li key={f.name}>{f.name}</li>
+            )
+          })}
+        </ol>
+      </div>
+        <div className={data.inDropZone ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'}
+    >
+  <p>Drag files here to upload</p>
+</div>
       </div>
     );
   }
