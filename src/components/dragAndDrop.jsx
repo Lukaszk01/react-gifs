@@ -1,6 +1,6 @@
 import React from 'react';
 
-const DragAndDrop = props => {
+const dragAndDrop = props() => {
   const handleDragEnter = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -28,4 +28,4 @@ const DragAndDrop = props => {
     </div>
   );
 };
-export default DragAndDrop;
+export default dragAndDrop;
