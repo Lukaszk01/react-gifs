@@ -53,7 +53,7 @@ class App extends Component {
           <h1>React drag-and-drop component</h1>
           <dragAndDrop />
         </div>
-        <div className={data.inDropZone ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'}></div>
+        <div className={data.inDropZone ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'}>Text</div>
       </div>
     );
   }
