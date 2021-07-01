@@ -49,11 +49,6 @@ class App extends Component {
         <div className="right-scene">
           <GifList gifIdList={giIdList} changeSelectGif={this.changeSelectGif} />
         </div>
-        <div className="App">
-          <h1>React drag-and-drop component</h1>
-          <dragAndDrop />
-        </div>
-        <div className={data.inDropZone ? 'drag-drop-zone inside-drag-area' : 'drag-drop-zone'}>Text</div>
       </div>
     );
   }
