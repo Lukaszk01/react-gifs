@@ -1,31 +1,21 @@
-import React from 'react';
+import React, { useState } from "react";
+import { FileUploader } from "react-drag-drop-files";
 
-const dragAndDrop = props() => {
-  const handleDragEnter = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDragLeave = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDragOver = e => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-  const handleDrop = e => {
-    e.preventDefault();
-    e.stopPropagation();
+// const fileTypes = ["JPG", "PNG", "GIF"];
+
+function DragDrop() {
+  const [file, setFile] = useState(null);
+  const handleChange = file => {
+    setFile(file);
   };
   return (
-    <div className={'drag-drop-zone'}
-      onDrop={e => handleDrop(e)}
-      onDragOver={e => handleDragOver(e)}
-      onDragEnter={e => handleDragEnter(e)}
-      onDragLeave={e => handleDragLeave(e)}
-    >
-      <p>Drag files here to upload</p>
-    </div>
+    <FileUploader 
+      file={file} 
+      handleChange={handleChange} 
+      name="file" 
+      types={fileTypes} 
+    />
   );
-};
-export default dragAndDrop;
+}
+
+export default DragDrop;
